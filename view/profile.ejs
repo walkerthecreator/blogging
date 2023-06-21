@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/link') %>
+    <title>profile</title>
+</head>
+<body>
+    <%- include('partials/nav') %>
+
+    <h2 class="text-center">user profile</h2>
+
+    <div class="container m-5 d-flex justify-content-around flex-wrap">
+        <% for(i of blogs){%>
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <div class="container-fluid d-flex justify-content-between">
+                        <h5 class="card-title h5 fw-2"><%= i.title %></h5>
+                        <a href="delete/<%= i._id%>" class="btn btn-danger ms-auto p-2">x</a>
+                    </div>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><%= i.category %></h6>
+                <p class="card-text"><%= i.content %></p>
+                    <h5 class="badge bg-primary"><%= i.user.email%></h5>
+                </div>
+            </div>
+            <% } %>
+    </div>
+    
+
+    <%- include('partials/script') %>
+</body>
+</html>

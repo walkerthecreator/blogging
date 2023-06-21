@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('partials/link') %>
+
+</head>
+<body>
+    <%- include('partials/nav') %>
+    <h2 class="h2">Add new Blog</h2>
+
+    <div class="container">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Content</label>
+            <textarea name="content" id="exampleInputPassword1" class="form-control" cols="30" rows="10"></textarea>
+            <!-- <input type="textarea" name="content" row="10" class="form-control" id="exampleInputPassword1"> -->
+            </div>
+            <div class="mb-3 ">
+                <label class="form-label" for="exampleCheck1">Category</label>
+                <input type="text" name="category" class="form-control" id="exampleCheck1">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+
+    <h2 class="text-center my-5">Blogs</h2>
+
+        <div class="container m-5 d-flex justify-space-around flex-wrap">
+            <% for(i of blogs){ %>
+                <div class="card m-2" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title"><%= i.title %></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary"><%= i.category %></h6>
+                    <p class="card-text"><%= i.content %></p>
+                        <h5 class="badge bg-primary"><%= i.user.email%></h5>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+
+    
+    <%- include('partials/script') %>
+</body>
+</html>
