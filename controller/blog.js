@@ -1,29 +1,24 @@
 const Blog = require('../model/blog')
 
 const getFeed = async(req , res) => {
-    if(req.cookies.user_id){
         const blogs = await Blog.find().populate('user')
+        console.log(blogs)
         return res.render('feed' , { blogs : blogs })
-    }
-    return res.redirect('user/login')
+
 }
 
 const addFeed = async( req , res) => {
-    if(req.cookies.user_id){
         const {title , content , category } = req.body
-        const blog = await Blog.create({title , content , category  , user : req.cookies.user_id})
+        const { id }  = req.user 
+        const blog = await Blog.create({title , content , category  , user : id})
         return res.status(201).redirect('/blog')
-    }
-    return res.redirect('user/login')
 }
 
 const getUserBlogs = async( req , res) => {
-    if(req.cookies.user_id){
-        const blog = await Blog.find({ user : req.cookies.user_id}) 
+        const { id }  = req.user 
+        const blog = await Blog.find({ user : id}).populate('user')
+        console.log(blog)
         return res.render('profile' , { blogs : blog })
-    }
-    return res.redirect('user/login')
-    
 }
 
 const deleteBlog = async(req , res) => {

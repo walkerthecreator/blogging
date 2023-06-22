@@ -1,6 +1,7 @@
 const User = require('../model/user')
 const bcrypt = require("bcrypt")
 const saltRound = 10
+const jwt = require('jsonwebtoken')
 
 // @method GET
 const getAddUser = (req , res) => {
@@ -42,7 +43,9 @@ const loginUser = async ( req , res) => {
     if(user){
         const matching = await bcrypt.compare( password , user.password )
          if(matching){
-            res.cookie('user_id ', user._id)
+            const encode = jwt.sign({ email : email , name : user.name , id: user._id} , process.env.JWT_SECRET )
+            console.log(encode)
+            res.cookie('token ', encode)
             return res.redirect('/blog')
          }
          return res.render('homepage' , { message : "password did not matched"})
@@ -58,3 +61,5 @@ const getLoginUser = ( req , res) => {
 }
 
 module.exports = {getAddUser , addUser , loginUser , getLoginUser }
+
+
